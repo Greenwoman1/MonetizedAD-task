@@ -18,7 +18,7 @@ return (
     <Link to="/">Home</Link>
     {isLoggedIn ? (
       <>
-        <Link to="/products">Products</Link>
+        <Link to="/product">Products</Link>
         <span>{`User ID: ${userData.id}, Username: ${userData.username}`}</span>
         <button onClick = {handleLogOut}>Logout</button>
       </>

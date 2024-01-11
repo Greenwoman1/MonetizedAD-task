@@ -32,15 +32,18 @@ export const login = async (data) => {
     console.log("response jwt", response.data.jwt);
     const res = await decodeToken(localStorage.token);
     user_data = {
-        username: res.username,
-        id: res.id,
-      };
-    localStorage.setItem("userData", JSON.stringify({
-      username: user_data.username,
-      id: user_data.id,
-    }));
+      username: res.username,
+      id: res.id,
+    };
+    localStorage.setItem(
+      "userData",
+      JSON.stringify({
+        username: user_data.username,
+        id: user_data.id,
+      })
+    );
   } catch (error) {
-    console.log(error)
+    console.log(error);
     throw new Error("Login faileddd");
   }
 };
@@ -59,5 +62,31 @@ export const decodeToken = async (token) => {
     } catch (error) {
       console.error("Error decoding token:", error);
     }
+  }
+};
+
+export const getProduct = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      throw new Error("Token not available");
+    }
+    console.log(token);
+    const response = await axios.get(
+      "https://junior-test.mntzdevs.com/api/products/",
+      {
+        headers: {
+          "Content-Type": "application/json",
+
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(response)
+    return response.data;
+    console.log(response);
+  } catch (error) {
+    console.error("Error GETTING DATA:", error);
   }
 };
