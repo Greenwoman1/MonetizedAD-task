@@ -1,3 +1,5 @@
+import "./pagination.css"
+
 const Pagination = ({ nPages, currentPage, setCurrentPage }) => {
     const pageNumbers = [...Array(nPages + 1).keys()].slice(1);
   
@@ -12,7 +14,7 @@ const Pagination = ({ nPages, currentPage, setCurrentPage }) => {
     };
   
     return (
-      <nav>
+      <div className="pagination">
         <ul className="pagination justify-content-center">
           <li className="page-item">
             <a className="page-link" onClick={goToPrevPage} href="#">
@@ -43,7 +45,7 @@ const Pagination = ({ nPages, currentPage, setCurrentPage }) => {
             </a>
           </li>
         </ul>
-      </nav>
+      </div>
     );
   };
   

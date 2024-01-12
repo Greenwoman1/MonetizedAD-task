@@ -1,4 +1,4 @@
-/* Style for the Header container */
+
 .header-container {
     display: flex;
     justify-content: space-between;
@@ -7,14 +7,14 @@
     color: white;
   }
   
-  /* Style for the navigation links */
+  
   .nav-link {
     text-decoration: none;
     color: white;
     margin-right: 15px;
   }
   
-  /* Style for the Logout button */
+  
   .logout-button {
     background-color: #ff4500;
     color: white;
@@ -24,12 +24,12 @@
     font-size: 14px;
   }
   
-  /* Style for the Logout button on hover */
+  
   .logout-button:hover {
     background-color: #cc3700;
   }
   
-  /* Style for the user information span */
+  
   .user-info {
     margin-right: 15px;
   }

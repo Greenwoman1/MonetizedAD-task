@@ -7,7 +7,7 @@ const ProductTable = ({ products }) => {
     }, [products])
  
   return (
-    <div>
+    <div className="product-table">
       <div></div>
 
       <table>

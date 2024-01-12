@@ -8,6 +8,7 @@ import { all } from "axios";
 import ProductTable from "./ProductTable";
 import Pagination from "./Pagination";
 import Header from "./Header";
+import "./content.css"
 const Content = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -65,10 +66,10 @@ const Content = () => {
   const changeNumbers = async () => {
     const newIndexOfLastRecord = currentPage * recordsPerPage;
 
-    // Set indexOfFirstRecord using the new value of indexOfLastRecord
+    
     setIndexOfFirstRecord(newIndexOfLastRecord - recordsPerPage);
 
-    // Finally, set indexOfLastRecord
+    
     setIndexOfLastRecord(newIndexOfLastRecord);
   };
   useEffect(() => {
@@ -151,27 +152,27 @@ const Content = () => {
 
   const handleRemoveFilter = () => {
     setFilteredData(filteredProducts);
-    //setCurrentRecords(filteredData.slice(indexOfFirstRecord, indexOfLastRecord))
+    
     setFilterName("");
     setFilterPrice("");
   };
 
   const handleFilter = async () => {
     if (!filteredData || !setFilteredData.length) {
-      // Ako nema proizvoda, nema šta ni filtrirati
+      
       return;
     }
 
     let filteredResults = [...filteredData];
 
-    // Filtriranje po nazivu
+    
     if (filterName) {
       filteredResults = filteredResults.filter((product) =>
         product.name.toLowerCase().includes(filterName.toLowerCase())
       );
     }
 
-    // Filtriranje po ceni
+    
     if (filterPrice) {
       filteredResults = filteredResults.filter(
         (product) => parseFloat(product.price) === parseFloat(filterPrice)
@@ -182,8 +183,9 @@ const Content = () => {
   };
 
   return (
-    <div>
+    <div >
         <Header></Header>
+        <div className="content">
       <div>
         <label>
           Filter by Name:
@@ -221,6 +223,7 @@ const Content = () => {
           />
         </div>
       )}
+      </div>
     </div>
   );
 };

@@ -1,0 +1,40 @@
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  
+  .content label {
+    margin-right: 10px;
+  }
+  
+  .content input[type="text"],
+  .content input[type="number"] {
+    padding: 5px;
+    margin-right: 10px;
+  }
+  
+  .content button {
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  
+  .content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .content th,
+  .content td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .content th {
+    background-color: #f2f2f2;
+  }
+  

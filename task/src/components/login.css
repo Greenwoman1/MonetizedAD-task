@@ -1,4 +1,4 @@
-/* Style for the form container */
+
 .form-container {
     max-width: 400px;
     margin: auto;
@@ -8,13 +8,13 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
-  /* Style for the form labels */
+  
   .form-label {
     display: block;
     margin-bottom: 8px;
   }
   
-  /* Style for the input fields */
+  
   .form-input {
     width: 100%;
     padding: 8px;
@@ -22,7 +22,7 @@
     box-sizing: border-box;
   }
   
-  /* Style for the submit button */
+  
   .form-button {
     background-color: #4caf50;
     color: white;
@@ -32,7 +32,7 @@
     cursor: pointer;
   }
   
-  /* Style for the submit button on hover */
+  
   .form-button:hover {
     background-color: #45a049;
   }
