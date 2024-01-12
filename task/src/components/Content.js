@@ -22,7 +22,7 @@ const Content = () => {
   const [filteredData, setFilteredData] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [recordsPerPage] = useState(3);
+  const [recordsPerPage, setRecordsPerPage] = useState(3);
 
   const [indexOfLastRecord, setIndexOfLastRecord] = useState(
     currentPage * recordsPerPage
@@ -41,15 +41,10 @@ const Content = () => {
   useEffect(() => {
     setCurrentRecords([]);
 
-    console.log(indexOfFirstRecord, indexOfLastRecord);
     setCurrentRecords(
       filteredData.slice(indexOfFirstRecord, indexOfLastRecord)
     );
-    console.log(currentRecords.length);
-    console.log(
-      "current records = ",
-      filteredData.slice(indexOfFirstRecord, indexOfLastRecord)
-    );
+    
     setNPages(Math.ceil(filteredData.length / recordsPerPage));
   }, [
     filteredData,
@@ -57,6 +52,7 @@ const Content = () => {
     filterPrice,
     indexOfFirstRecord,
     indexOfLastRecord,
+    recordsPerPage
   ]);
 
   useEffect(() => {
@@ -83,7 +79,6 @@ const Content = () => {
     const fetchData = async () => {
       try {
         const response = await getProduct();
-        console.log(response);
         setProducts(response);
       } catch (error) {
         console.error("Error fetching data:", error.message);
@@ -113,12 +108,11 @@ const Content = () => {
 
       setFilteredProducts(allProducts);
       setFilteredData(allProducts);
-      console.log(allProducts);
+
     }
   };
 
   const collectProducts = (productId, allProducts, parentId) => {
-    console.log(productId + "id");
 
     let product = {};
 
@@ -128,9 +122,7 @@ const Content = () => {
       product = products.products[parentId].linkedProducts[productId];
     }
     if (product && !allProducts.some((p) => p.id === productId)) {
-      console.log(`Adding product to allProducts: ${JSON.stringify(product)}`);
 
-      console.log(product);
 
       if (product) {
         allProducts.push({
@@ -142,9 +134,7 @@ const Content = () => {
     }
 
     if (product.linkedProducts) {
-      console.log("ima ");
       Object.keys(product.linkedProducts).forEach((linkedProductId) => {
-        console.log(1);
         collectProducts(linkedProductId, allProducts, productId);
       });
     }
@@ -182,6 +172,9 @@ const Content = () => {
     await setFilteredData(filteredResults);
   };
 
+  const handleButtonClick = (value) => {
+    setRecordsPerPage(value);
+  };
   return (
     <div >
         <Header></Header>
@@ -221,6 +214,13 @@ const Content = () => {
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
           />
+
+<div>
+<button onClick={() => handleButtonClick(3)}>Set 3</button>
+        <button onClick={() => handleButtonClick(5)}>Set 5</button>
+        <button onClick={() => handleButtonClick(7)}>Set 7</button>
+        <button onClick={() => handleButtonClick(9)}>Set 9</button>
+      </div>
         </div>
       )}
       </div>

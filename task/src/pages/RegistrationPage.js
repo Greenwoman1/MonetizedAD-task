@@ -26,18 +26,16 @@ const navigate = useNavigate()
 
   const handleRegistration = async () => {
     try {
-      const registrationResponse = register(formData);
+      const registrationResponse = await register(formData);
 
-      if (!registrationResponse.ok) {
-        throw new Error("Registration failed");
-      }
+     
     } catch (error) {
       console.error("Error:", error.message);
     }
     try {
-      const loginResponse = login({username: formData.username, password: formData.password})
+      const loginResponse = await login({username: formData.username, password: formData.password})
 
-      if (!loginResponse.ok) {
+      if (!loginResponse) {
         throw new Error("Login failed");
       }
       navigate('/')

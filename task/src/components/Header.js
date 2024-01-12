@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import "./header.css"; // Import the CSS file
-
+import { useNavigate } from "react-router-dom";
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('userData'));
   const userData = JSON.parse(localStorage.getItem('userData'));
-
+  const navigate = useNavigate();
   const handleLogOut = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userData');
+    navigate("/")
     setIsLoggedIn(false);
   }
 

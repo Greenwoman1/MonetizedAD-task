@@ -2,10 +2,7 @@ import { useEffect, useState } from "react";
 
 const ProductTable = ({ products }) => {
 
-    useEffect(()=>{
-        console.log("peoducts ", products)
-    }, [products])
- 
+  
   return (
     <div className="product-table">
       <div></div>

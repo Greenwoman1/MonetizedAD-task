@@ -41,6 +41,8 @@ export const login = async (data) => {
         id: user_data.id,
       })
     );
+
+    return response;
   } catch (error) {
     console.log(error);
     throw new Error("Login faileddd");

@@ -29,7 +29,6 @@ const Pagination = ({ nPages, currentPage, setCurrentPage }) => {
               <a
                 onClick={(e) => {
                   e.preventDefault();
-                  console.log("promijenila stranicu")
                   setCurrentPage(pgNumber);
                 }}
                 className="page-link"
