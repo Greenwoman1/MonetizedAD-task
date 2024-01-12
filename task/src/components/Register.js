@@ -1,42 +1,46 @@
-const Register  = ({formData, handleInputChange, handleRegistration}) => {
+import React from 'react';
+import './register.css'; // Import the CSS file
 
-return (
-    <div> 
-
-<div>
+const Register = ({ formData, handleInputChange, handleRegistration }) => {
+  return (
+    <div className="register-container">
       <h2>Registration Form</h2>
       <form>
-        <div>
-          <label>Username:</label>
+        <div className="form-group">
+          <label className="form-label">Username:</label>
           <input
+            className="form-input"
             type="text"
             name="username"
             value={formData.username}
             onChange={handleInputChange}
           />
         </div>
-        <div>
-          <label>Password:</label>
+        <div className="form-group">
+          <label className="form-label">Password:</label>
           <input
+            className="form-input"
             type="password"
             name="password"
             value={formData.password}
             onChange={handleInputChange}
           />
         </div>
-        <div>
-          <label>Repeat Password:</label>
+        <div className="form-group">
+          <label className="form-label">Repeat Password:</label>
           <input
+            className="form-input"
             type="password"
             name="repeatPassword"
             value={formData.repeatPassword}
             onChange={handleInputChange}
           />
         </div>
-        <div>
-          <label>
+        <div className="form-group">
+          <label className="form-label">
             Subscribe to Newsletter:
             <input
+              className="form-checkbox"
               type="checkbox"
               name="subscribeToNewsLetter"
               checked={formData.subscribeToNewsLetter}
@@ -44,12 +48,13 @@ return (
             />
           </label>
         </div>
-        <div>
-          <label>
-            Gender:
-            <label>
+        <div className="form-group">
+          <label className="form-label">Gender:</label>
+          <div className="form-radio-group">
+            <label className="form-checkbox-label">
               Male
               <input
+                className="form-radio"
                 type="radio"
                 name="gender"
                 value="male"
@@ -57,9 +62,10 @@ return (
                 onChange={handleInputChange}
               />
             </label>
-            <label>
+            <label className="form-checkbox-label">
               Female
               <input
+                className="form-radio"
                 type="radio"
                 name="gender"
                 value="female"
@@ -67,18 +73,7 @@ return (
                 onChange={handleInputChange}
               />
             </label>
-          </label>
-        </div>
-        <div>
-          <label>Status:</label>
-          <select
-            name="status"
-            value={formData.status}
-            onChange={handleInputChange}
-          >
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-          </select>
+          </div>
         </div>
         <div>
           <label>Year of Birth:</label>
@@ -89,20 +84,14 @@ return (
             onChange={handleInputChange}
           />
         </div>
-        <div>
-          <button type="button" onClick={handleRegistration}>
+        <div className="form-group">
+          <button className="form-button" type="button" onClick={handleRegistration}>
             Register
           </button>
         </div>
       </form>
     </div>
-    </div>
-
-
-)
-
-
-}
-
+  );
+};
 
 export default Register;

@@ -29,7 +29,6 @@ export const login = async (data) => {
     );
 
     localStorage.setItem("token", response.data.jwt);
-    console.log("response jwt", response.data.jwt);
     const res = await decodeToken(localStorage.token);
     user_data = {
       username: res.username,
@@ -54,7 +53,6 @@ export const decodeToken = async (token) => {
       const decoded = await jwtDecode(token);
 
       if (decoded) {
-        console.log("decoded toke: ", decoded);
         return decoded;
       } else {
         console.error("Error decoding token");
@@ -72,7 +70,6 @@ export const getProduct = async () => {
     if (!token) {
       throw new Error("Token not available");
     }
-    console.log(token);
     const response = await axios.get(
       "https://junior-test.mntzdevs.com/api/products/",
       {
@@ -83,9 +80,7 @@ export const getProduct = async () => {
         },
       }
     );
-    console.log(response)
     return response.data;
-    console.log(response);
   } catch (error) {
     console.error("Error GETTING DATA:", error);
   }
