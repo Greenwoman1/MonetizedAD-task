@@ -13,7 +13,7 @@ const navigate = useNavigate()
     subscribeToNewsLetter: false,
     gender: "male",
     status: "active",
-    yearOfBirth: 1990,
+    yearOfBirth : 1990,
   });
 
   const handleInputChange = (e) => {
@@ -25,23 +25,36 @@ const navigate = useNavigate()
   };
 
   const handleRegistration = async () => {
+
+    try {
     try {
       const registrationResponse = await register(formData);
-
-     
+      console.log(JSON.stringify(registrationResponse))
+      if (!registrationResponse){
+        
+        throw new Error("ne velja")
+      }
     } catch (error) {
-      console.error("Error:", error.message);
+      throw new Error ("error: ", error.message);
     }
     try {
+      
       const loginResponse = await login({username: formData.username, password: formData.password})
 
       if (!loginResponse) {
         throw new Error("Login failed");
       }
-      navigate('/')
+      
+      
     } catch (error) {
       console.error("Error:", error.message);
     }
+    navigate("/")
+  }
+  catch(error){
+    console.error("Error", error.message)
+  }
+
   };
 
   return (

@@ -3,13 +3,17 @@ import { jwtDecode } from "jwt-decode";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom/dist/umd/react-router-dom.development";
 export const register = async (formData) => {
-  await fetch("https://junior-test.mntzdevs.com/api/register/", {
+  const response  =  await fetch("https://junior-test.mntzdevs.com/api/register/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(formData),
   });
+  console.log(response.ok)
+  return response.ok;
+
+
 };
 
 export const login = async (data) => {
