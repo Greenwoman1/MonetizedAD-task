@@ -1,19 +1,20 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import { useState } from "react";
-import { useSearchParams } from "react-router-dom/dist/umd/react-router-dom.development";
 export const register = async (formData) => {
-  const response  =  await fetch("https://junior-test.mntzdevs.com/api/register/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formData),
-  });
-  console.log(response.ok)
-  return response.ok;
-
-
+  try {
+    const response = await axios.post(
+      "https://junior-test.mntzdevs.com/api/register/",
+      formData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  } catch (error) {
+    console.error("Error during registration:", error.message);
+    throw error;
+  }
 };
 
 export const login = async (data) => {
@@ -49,7 +50,7 @@ export const login = async (data) => {
     return response;
   } catch (error) {
     console.log(error);
-    throw new Error("Login faileddd");
+    throw new Error("Login failed");
   }
 };
 

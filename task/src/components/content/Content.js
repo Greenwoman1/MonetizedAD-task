@@ -3,12 +3,11 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom/dist/umd/react-router-dom.development";
-import { getProduct } from "../api/api";
-import { all } from "axios";
-import ProductTable from "./ProductTable";
-import Pagination from "./Pagination";
-import Header from "./Header";
-import "./content.css"
+import { getProduct } from "../../api/api";
+import ProductTable from "../products/ProductTable";
+import Pagination from "../pagination/Pagination";
+import Header from "../header/Header";
+import "./content.css";
 const Content = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -44,7 +43,7 @@ const Content = () => {
     setCurrentRecords(
       filteredData.slice(indexOfFirstRecord, indexOfLastRecord)
     );
-    
+
     setNPages(Math.ceil(filteredData.length / recordsPerPage));
   }, [
     filteredData,
@@ -52,7 +51,7 @@ const Content = () => {
     filterPrice,
     indexOfFirstRecord,
     indexOfLastRecord,
-    recordsPerPage
+    recordsPerPage,
   ]);
 
   useEffect(() => {
@@ -62,10 +61,8 @@ const Content = () => {
   const changeNumbers = async () => {
     const newIndexOfLastRecord = currentPage * recordsPerPage;
 
-    
     setIndexOfFirstRecord(newIndexOfLastRecord - recordsPerPage);
 
-    
     setIndexOfLastRecord(newIndexOfLastRecord);
   };
   useEffect(() => {
@@ -76,16 +73,18 @@ const Content = () => {
   }, [location.pathname, navigate]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getProduct();
-        setProducts(response);
-      } catch (error) {
-        console.error("Error fetching data:", error.message);
-      }
-    };
+    if (localStorage.getItem("token")) {
+      const fetchData = async () => {
+        try {
+          const response = await getProduct();
+          setProducts(response);
+        } catch (error) {
+          console.error("Error fetching data:", error.message);
+        }
+      };
 
-    fetchData();
+      fetchData();
+    }
   }, []);
 
   useEffect(() => {
@@ -108,22 +107,18 @@ const Content = () => {
 
       setFilteredProducts(allProducts);
       setFilteredData(allProducts);
-
     }
   };
 
   const collectProducts = (productId, allProducts, parentId) => {
-
     let product = {};
 
-    if (parentId == 0) {
+    if (parentId === 0) {
       product = products.products[productId];
     } else {
       product = products.products[parentId].linkedProducts[productId];
     }
     if (product && !allProducts.some((p) => p.id === productId)) {
-
-
       if (product) {
         allProducts.push({
           id: productId,
@@ -142,27 +137,24 @@ const Content = () => {
 
   const handleRemoveFilter = () => {
     setFilteredData(filteredProducts);
-    
+
     setFilterName("");
     setFilterPrice("");
   };
 
   const handleFilter = async () => {
     if (!filteredData || !setFilteredData.length) {
-      
       return;
     }
 
     let filteredResults = [...filteredData];
 
-    
     if (filterName) {
       filteredResults = filteredResults.filter((product) =>
         product.name.toLowerCase().includes(filterName.toLowerCase())
       );
     }
 
-    
     if (filterPrice) {
       filteredResults = filteredResults.filter(
         (product) => parseFloat(product.price) === parseFloat(filterPrice)
@@ -170,59 +162,60 @@ const Content = () => {
     }
 
     await setFilteredData(filteredResults);
+    setCurrentPage(1);
   };
 
   const handleButtonClick = (value) => {
     setRecordsPerPage(value);
   };
   return (
-    <div >
-        <Header></Header>
-        <div className="content">
-      <div>
-        <label>
-          Filter by Name:
-          <input
-            type="text"
-            value={filterName}
-            onChange={(e) => setFilterName(e.target.value)}
-          />
-        </label>
-        <button onClick={handleFilter}>Filter</button>
-      </div>
-      <div>
-        <label>
-          Filter by Price:
-          <input
-            type="text"
-            value={filterPrice}
-            onChange={(e) => setFilterPrice(e.target.value)}
-          />
-        </label>
-        <button onClick={handleFilter}>Filter</button>
-      </div>
-
-      <div>
-        <button onClick={handleRemoveFilter}>Remove Filter</button>
-      </div>
-
-      {filteredProducts && (
+    <div>
+      <Header></Header>
+      <div className="content">
         <div>
-          <ProductTable products={currentRecords}></ProductTable>
-          <Pagination
-            nPages={nPages}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
-
-<div>
-<button onClick={() => handleButtonClick(3)}>Set 3</button>
-        <button onClick={() => handleButtonClick(5)}>Set 5</button>
-        <button onClick={() => handleButtonClick(7)}>Set 7</button>
-        <button onClick={() => handleButtonClick(9)}>Set 9</button>
-      </div>
+          <label>
+            Filter by Name:
+            <input
+              type="text"
+              value={filterName}
+              onChange={(e) => setFilterName(e.target.value)}
+            />
+          </label>
+          <button onClick={handleFilter}>Filter</button>
         </div>
-      )}
+        <div>
+          <label>
+            Filter by Price:
+            <input
+              type="text"
+              value={filterPrice}
+              onChange={(e) => setFilterPrice(e.target.value)}
+            />
+          </label>
+          <button onClick={handleFilter}>Filter</button>
+        </div>
+
+        <div>
+          <button onClick={handleRemoveFilter}>Remove Filter</button>
+        </div>
+
+        {filteredProducts && (
+          <div>
+            <ProductTable products={currentRecords}></ProductTable>
+            <Pagination
+              nPages={nPages}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+
+            <div>
+              <button onClick={() => handleButtonClick(3)}>Set 3</button>
+              <button onClick={() => handleButtonClick(5)}>Set 5</button>
+              <button onClick={() => handleButtonClick(7)}>Set 7</button>
+              <button onClick={() => handleButtonClick(9)}>Set 9</button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

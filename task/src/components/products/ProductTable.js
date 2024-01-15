@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-
+import "./productTable.css"
 const ProductTable = ({ products }) => {
 
   

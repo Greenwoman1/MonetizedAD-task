@@ -1,11 +1,12 @@
-import Register from "../components/Register";
+import Register from "../components/register/Register";
 import { useState } from "react";
 import { register, login } from "../api/api";
 import { useNavigate } from "react-router-dom/dist/umd/react-router-dom.development";
+import Header from "../components/header/Header";
 
 const RegistrationPage = () => {
-
-const navigate = useNavigate()
+  const [error, setError] = useState();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -13,7 +14,7 @@ const navigate = useNavigate()
     subscribeToNewsLetter: false,
     gender: "male",
     status: "active",
-    yearOfBirth : 1990,
+    yearOfBirth: 1990,
   });
 
   const handleInputChange = (e) => {
@@ -25,40 +26,38 @@ const navigate = useNavigate()
   };
 
   const handleRegistration = async () => {
-
     try {
-    try {
-      const registrationResponse = await register(formData);
-      console.log(JSON.stringify(registrationResponse))
-      if (!registrationResponse){
-        
-        throw new Error("ne velja")
+      try {
+        await register(formData);
+      } catch (error) {
+        throw new Error(error);
       }
-    } catch (error) {
-      throw new Error ("error: ", error.message);
-    }
-    try {
-      
-      const loginResponse = await login({username: formData.username, password: formData.password})
+      try {
+        const loginResponse = await login({
+          username: formData.username,
+          password: formData.password,
+        });
 
-      if (!loginResponse) {
-        throw new Error("Login failed");
+        if (!loginResponse) {
+          throw new Error("Login failed");
+        }
+      } catch (error) {
+        console.error("Error:", error.message);
       }
-      
-      
+      navigate("/");
     } catch (error) {
-      console.error("Error:", error.message);
-    }
-    navigate("/")
-  }
-  catch(error){
-    console.error("Error", error.message)
-  }
+      setError(
+        "Please change username, Account with provided username already exists."
+      );
 
+      console.error("Error", error.message);
+    }
   };
 
   return (
     <div>
+      <Header></Header>
+      {error && <div className="error-message">{error}</div>}
       <Register
         formData={formData}
         handleInputChange={handleInputChange}

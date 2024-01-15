@@ -1,20 +1,15 @@
-import { decodeToken, login } from "../api/api";
-import { useEffect, useState } from "react";
+import {  login } from "../../api/api";
+import {  useState } from "react";
 import {
   useNavigate,
   useLocation,
 } from "react-router-dom/dist/umd/react-router-dom.development";
-import "./login.css"
+import "./login.css";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const location = useLocation();
-  const { from } = location.state || { from: { pathname: "/" } };
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log(from);
-  });
 
   const loginUser = async () => {
     try {
@@ -25,11 +20,10 @@ const Login = () => {
       }
 
       const fromPathname = location.state?.from || "/";
-      console.log(localStorage.getItem("userData"));
       navigate(fromPathname);
       console.log("Login successful");
     } catch (error) {
-      console.error("Error during loginnnnnnnn:", error.message);
+      console.error("Error during login:", error.message);
     }
   };
 
