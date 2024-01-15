@@ -1,12 +1,17 @@
 import Register from "../components/register/Register";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import { register, login } from "../api/api";
 import { useNavigate } from "react-router-dom/dist/umd/react-router-dom.development";
 import Header from "../components/header/Header";
-
 const RegistrationPage = () => {
-  const [error, setError] = useState();
+
   const navigate = useNavigate();
+  useEffect (()=>{
+    if(localStorage.getItem("token"))
+    navigate("/");
+  }, [])
+
+  const [error, setError] = useState();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -58,11 +63,11 @@ const RegistrationPage = () => {
     <div>
       <Header></Header>
       {error && <div className="error-message">{error}</div>}
-      <Register
+      { !localStorage.getItem("token") && <Register
         formData={formData}
         handleInputChange={handleInputChange}
         handleRegistration={handleRegistration}
-      ></Register>
+      ></Register>}
     </div>
   );
 };

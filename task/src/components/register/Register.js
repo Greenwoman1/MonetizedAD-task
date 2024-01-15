@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './register.css'; // Import the CSS file
 import { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
 const Register = ({ formData, handleInputChange, handleRegistration }) => {
-
   const [errors, setErrors] = useState({});
 
+
+ 
   const validateForm = async() => {
     const newErrors = {};
 
