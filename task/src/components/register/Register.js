@@ -10,39 +10,32 @@ const Register = ({ formData, handleInputChange, handleRegistration }) => {
   const validateForm = async() => {
     const newErrors = {};
 
-    // Validate username
     if (!formData.username) {
       newErrors.username = 'Username is required';
     } else if (formData.username.length < 3 || formData.username.length > 20) {
       newErrors.username = 'Username must be between 3 and 20 characters';
     }
-    // Add other username validations, e.g., uniqueness
 
-    // Validate password
     if (!formData.password) {
       newErrors.password = 'Password is required';
     } else if (formData.password.length < 6 || formData.password.length > 20) {
       newErrors.password = 'Password must be between 6 and 20 characters';
     }
 
-    // Validate repeatPassword
     if (!formData.repeatPassword) {
       newErrors.repeatPassword = 'Repeat Password is required';
     } else if (formData.repeatPassword !== formData.password) {
       newErrors.repeatPassword = 'Passwords do not match';
     }
 
-    // Validate subscribeToNewsLetter
     
     if (formData.yearOfBirth < 1900 && formData.yearOfBirth > 2024) {
       newErrors.subscribeToNewsLetter = 'Year of Birth must be between 1900 and 2024' ;
     }
-    // Add validations for gender, status, yearOfBirth, etc.
 
     setErrors(newErrors);
     const isValid = Object.keys(newErrors).length === 0;
 
-    // Čekanje na ažuriranje stanja pre nego što se nastavi
     await new Promise((resolve) => setTimeout(resolve, 0));
   
     return isValid
@@ -50,7 +43,6 @@ const Register = ({ formData, handleInputChange, handleRegistration }) => {
 
   const handleSubmit = async () => {
     if (await validateForm()) {
-      // Nastavite sa registracijom
       handleRegistration();
     }
   };
